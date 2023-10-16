@@ -12,9 +12,8 @@ from tensorflow.keras.models import *
 from tensorflow.keras.layers import *
 from tensorflow.keras.optimizers import *
 
-
 def get_optimizer():
-    return Adam(lr=1e-4)
+    return Adam(learning_rate=1e-4)
 
 def generator_model(pretrained_weights = None,input_size = (256,256,1),biggest_layer = 512):
     
@@ -75,6 +74,7 @@ def discriminator_model(input_size = (256,256,1)):
 
         d = Conv2D(filters, kernel_size=f_size, strides=2, padding='same')(layer_input)
         d = LeakyReLU(alpha=0.2)(d)
+        d = Dropout(0.25)(d)
         if bn:
             d = BatchNormalization(momentum=0.8)(d)
         return d

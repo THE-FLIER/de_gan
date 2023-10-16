@@ -1,0 +1,10 @@
+CLEAN/*
+data/*
+Results/*
+weights/*
+*.jpg
+last_trained_weights/*
+*.png
+enhance.py
+test.py
+train.py
