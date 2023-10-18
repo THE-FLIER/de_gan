@@ -14,16 +14,16 @@ from utils import *
 from models.models import *
 
 
-# gpus = tf.config.experimental.list_physical_devices('GPU')
-#
-# tf.config.set_visible_devices(gpus[0], 'GPU')  # 使用or禁用用所有GPU设备
+gpus = tf.config.experimental.list_physical_devices('GPU')
+
+tf.config.set_visible_devices(gpus[0], 'GPU')  # 使用or禁用用所有GPU设备
 # tf.config.set_visible_devices(tf.config.list_physical_devices('CPU'), 'CPU')  # 启用CPU设备
 
 input_size = (256,256,1)
 
 task = 'unwatermark'
 
-if task =='binarize':
+if task =='unwatermark':
     generator = generator_model(biggest_layer=1024)
     generator.load_weights("weights/binarization_generator_weights.h5")
 
@@ -38,7 +38,7 @@ elif task =='unwatermark':
 else:
     print("Wrong task, please specify a correct task !")
 
-deg_image_path = './cropped_image_all_labeled/'
+deg_image_path = './example/'
 
 for i in os.listdir(deg_image_path):
     img_name = i.split('.')[0]
@@ -72,7 +72,7 @@ for i in os.listdir(deg_image_path):
     #     bin_thresh = 0.7
     #     predicted_image = (predicted_image[:,:]>bin_thresh)*1
 
-    save_path = './results_unwatermark_ori_img/'
+    save_path = './outputs/4'
     os.makedirs(save_path,exist_ok=True)
     print(time.time(),img_name)
     matplotlib.image.imsave(f'{save_path}{img_name}.jpg', predicted_image, cmap='gray')
